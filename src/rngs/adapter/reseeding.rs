@@ -279,7 +279,8 @@ where
 }
 
 
-#[cfg(all(unix, feature = "std", not(target_os = "emscripten")))]
+#[cfg(all(unix, feature = "std", not(target_os = "emscripten"),
+	not(target_os = "unikraft")))]
 mod fork {
     use core::sync::atomic::{AtomicUsize, Ordering};
     use std::sync::Once;
@@ -316,7 +317,8 @@ mod fork {
     }
 }
 
-#[cfg(not(all(unix, feature = "std", not(target_os = "emscripten"))))]
+#[cfg(not(all(unix, feature = "std", not(target_os = "emscripten"),
+	not(target_os = "unikraft"))))]
 mod fork {
     pub fn get_fork_counter() -> usize {
         0
